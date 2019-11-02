@@ -19,6 +19,7 @@ exports.list_all_meditions = function(req, res) {
 exports.create_a_medition = function(req, res) {
   console.log('POST requesto to /medition');
   var new__medition = new Medition(req.body);
+  console.log(req.body);
   new__medition.save(function(err, medition) {
     if (err)
       res.send(err);
