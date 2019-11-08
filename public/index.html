@@ -9,18 +9,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Optimize mobile viewport -->
 
     <title>Node/Angular Todo App</title>
+    <link rel="icon" type="image/png" href="./resources/termometro.png">
 
-    <!-- SCROLLS -->
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css"><!-- load bootstrap -->
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <style>
-        html                    { overflow-y:scroll; }
-        body                    { padding-top:50px; }
-        #medicion-list              { margin-bottom:30px; }
+        @font-face{
+          font-family:'digital-clock-font';
+          src: url('./resources/digital-7.ttf');
+        }
+
+        html { overflow-y:scroll; }
+
+        body { padding-top:50px; }
+
+        #medicion-list { margin-bottom:30px; }
+
+        .digital {
+          font-family:'digital-clock-font';
+        }
+
     </style>
 
-    <!-- SPELLS -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script><!-- load jquery -->
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script><!-- load angular -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.0/Chart.min.js"></script>
+    <script type="text/javascript" src="https://cdn.rawgit.com/jtblin/angular-chart.js/master/dist/angular-chart.min.js"></script>
     <script src="./core.js"></script>
 
 </head>
@@ -28,43 +46,15 @@
 <body ng-controller="mainController">
     <div class="container">
 
-        <!-- HEADER AND TODO COUNT -->
-        <div class="jumbotron text-center">
-            <h1>Nº de mediciones <span class="label label-info">{{ mediciones.length }}</span></h1>
+      <div class=" mb-3">
+        <div class="card bg-dark text-white text-center">
+          <h1 class="card-title text-center digital">
+            <b>{{ last.temperature }} ºC </b>
+          </h3>
+          {{ last.meditionTime | date:'HH:mm'}}
         </div>
-
-        <!-- TODO LIST -->
-        <div id="medicion-list" class="row">
-            <div class="col-sm-4 col-sm-offset-4">
-
-                <!-- LOOP OVER THE TODOS IN $scope.todos -->
-                <div class="checkbox" ng-repeat="medicion in mediciones">
-                    <label>
-                        <input type="checkbox" ng-click="deleteMedicion(medicion._id)"> {{ medicion.temperature }} ºC
-                    </label>
-                </div>
-
-            </div>
-        </div>
-
-        <!-- FORM TO CREATE TODOS -->
-        <div id="medicion-form" class="row">
-            <div class="col-sm-8 col-sm-offset-2 text-center">
-                <form>
-                    <div class="form-group">
-
-                        <!-- BIND THIS VALUE TO formData.text IN ANGULAR -->
-                        <span>Inserta nuevos datos de temperatura y humedad</span>
-                        <input type="text" class="form-control input-sm text-center" placeholder="ºC" ng-model="formData.temperature">
-                        <input type="text" class="form-control input-sm text-center" placeholder="%" ng-model="formData.humidity" size="25">
-                    </div>
-
-                    <!-- createToDo() WILL CREATE NEW TODOS -->
-                    <button type="submit" class="btn btn-primary btn-lg" ng-click="createMedicion()">Añadir</button>
-                </form>
-            </div>
-        </div>
-
+      </div>
+      <canvas id="myChart" width="400" height="400"></canvas>
     </div>
 
 </body>

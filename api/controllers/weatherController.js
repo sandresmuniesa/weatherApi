@@ -1,6 +1,5 @@
 'use strict';
 
-
 var mongoose = require('mongoose'),
   Medition = mongoose.model('Medition');
 
@@ -13,9 +12,6 @@ exports.list_all_meditions = function(req, res) {
   });
 };
 
-
-
-
 exports.create_a_medition = function(req, res) {
   console.log('POST requesto to /medition');
   var new__medition = new Medition(req.body);
@@ -23,10 +19,10 @@ exports.create_a_medition = function(req, res) {
   new__medition.save(function(err, medition) {
     if (err)
       res.send(err);
+    console.log(medition.meditionTime);
     res.json(medition);
   });
 };
-
 
 exports.read_a_medition = function(req, res) {
   Medition.findById(req.params.taskId, function(err, medition) {
@@ -36,7 +32,6 @@ exports.read_a_medition = function(req, res) {
   });
 };
 
-
 exports.update_a_medition = function(req, res) {
   Medition.findOneAndUpdate({_id: req.params.meditionId}, req.body, {new: true}, function(err, medition) {
     if (err)
@@ -44,7 +39,6 @@ exports.update_a_medition = function(req, res) {
     res.json(medition);
   });
 };
-
 
 exports.delete_a_medition = function(req, res) {
   Medition.remove({
@@ -55,3 +49,13 @@ exports.delete_a_medition = function(req, res) {
     res.json({ message: 'Medition '+ req.params.meditionId +' successfully deleted' });
   });
 };
+
+exports.get_last_medition = function(req, res){
+  console.log('GET requesto to /medition/last');
+  Medition.findOne().sort('-meditionTime').exec(function(err, medition) {
+    if (err)
+      res.send(err);
+    console.log( medition );
+    res.json(medition);
+  });
+}

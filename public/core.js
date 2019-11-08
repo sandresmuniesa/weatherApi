@@ -1,7 +1,17 @@
-var medicionesApp = angular.module('medicionesApp', []);
+var medicionesApp = angular.module('medicionesApp', ['chart.js']);
 
 function mainController($scope, $http) {
     $scope.formData = {};
+
+    //obtener ultima medicion
+    $http.get('/medition/last')
+      .success(function(data) {
+          $scope.last = data;
+          console.log(data);
+      })
+      .error(function(data) {
+          console.log('Error: ' + data);
+      });
 
     // when landing on the page, get all mediciones and show them
     $http.get('/medition')
