@@ -10,6 +10,12 @@ module.exports = function(app) {
     app.route('/medition/last')
       .get(todoList.get_last_medition);
 
+    app.route('/medition/max/:fecha')
+      .get(todoList.get_max_medition_date);
+
+    app.route('/medition/min/:fecha')
+      .get(todoList.get_min_medition_date);
+
     app.route('/medition/:meditionId')
       .get(todoList.read_a_medition)
       .put(todoList.update_a_medition)

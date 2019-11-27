@@ -59,3 +59,35 @@ exports.get_last_medition = function(req, res){
     res.json(medition);
   });
 }
+
+exports.get_max_medition_date = function(req, res){
+  var date = new Date(Number(req.params.fecha));
+  console.log(date);
+  var dateInit = new Date(date.setHours(0,0,0));
+  var dateEnd = new Date(date.setHours(23,59,59));
+  console.log(dateInit);
+  console.log(dateEnd);
+  Medition.findOne({ 'meditionTime' : {"$gte": dateInit, "$lt": dateEnd}})
+    .sort('-temperature').exec(function(err, medition) {
+      if (err)
+        res.send(err);
+      console.log( medition );
+      res.json(medition);
+    });
+}
+
+exports.get_min_medition_date = function(req, res){
+  var date = new Date(Number(req.params.fecha));
+  console.log(date);
+  var dateInit = new Date(date.setHours(0,0,0));
+  var dateEnd = new Date(date.setHours(23,59,59));
+  console.log(dateInit);
+  console.log(dateEnd);
+  Medition.findOne({ 'meditionTime' : {"$gte": dateInit, "$lt": dateEnd}})
+    .sort('temperature').exec(function(err, medition) {
+      if (err)
+        res.send(err);
+      console.log( medition );
+      res.json(medition);
+    });
+}

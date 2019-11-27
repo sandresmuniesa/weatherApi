@@ -3,7 +3,6 @@ var medicionesApp = angular.module('medicionesApp', ['chart.js']);
 function mainController($scope, $http) {
     $scope.formData = {};
 
-    //obtener ultima medicion
     $http.get('/medition/last')
       .success(function(data) {
           $scope.last = data;
@@ -11,23 +10,39 @@ function mainController($scope, $http) {
       })
       .error(function(data) {
           console.log('Error: ' + data);
-      });
+    });
+    var hora = new Date().getTime();
+    $http.get('/medition/max/'+hora)
+      .success(function(data) {
+          $scope.max = data;
+          console.log(data);
+      })
+      .error(function(data) {
+          console.log('Error: ' + data);
+    });
 
-    // when landing on the page, get all mediciones and show them
-    $http.get('/medition')
+    $http.get('/medition/min/'+hora)
+      .success(function(data) {
+          $scope.min = data;
+          console.log(data);
+      })
+      .error(function(data) {
+          console.log('Error: ' + data);
+    });
+
+    /*$http.get('/medition')
         .success(function(data) {
             $scope.mediciones = data;
             console.log(data);
         })
         .error(function(data) {
             console.log('Error: ' + data);
-        });
+        });*/
 
-    // when submitting the add form, send the text to the node API
     $scope.createMedicion = function() {
         $http.post('/medition', $scope.formData)
             .success(function(data) {
-                $scope.formData = {}; // clear the form so our user is ready to enter another
+                $scope.formData = {};
                 console.log(data);
                 $http.get('/medition')
                     .success(function(data) {
@@ -43,7 +58,6 @@ function mainController($scope, $http) {
             });
     };
 
-    // delete a todo after checking it
     $scope.deleteMedicion = function(id) {
         $http.delete('/medition/' + id)
             .success(function(data) {

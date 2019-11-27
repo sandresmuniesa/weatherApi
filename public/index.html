@@ -50,10 +50,27 @@
         <div class="card bg-dark text-white text-center">
           <h1 class="card-title text-center digital">
             <b>{{ last.temperature }} ºC </b>
-          </h3>
+          </h1>
           {{ last.meditionTime | date:'HH:mm'}}
         </div>
       </div>
+
+      <div class=" mb-3">
+        <div class="card bg-dark text-white text-center">
+          <h1 class="card-title text-center digital">
+            Maxima:
+            <b>{{ max.temperature }} ºC </b>
+        </div>
+      </div>
+
+      <div class=" mb-3">
+        <div class="card bg-dark text-white text-center">
+          <h1 class="card-title text-center digital">
+            Minima:
+            <b>{{ min.temperature }} ºC </b>
+        </div>
+      </div>
+
       <canvas id="myChart" width="400" height="400"></canvas>
     </div>
 
