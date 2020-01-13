@@ -4,8 +4,8 @@
   "description": "Weather API",
   "main": "index.js",
   "scripts": {
-    "test": "test",
-    "start": "nodemon server.js"
+    "test": "nodemon server.js",
+    "start": "node server.js"
   },
   "keywords": [
     "weather",
