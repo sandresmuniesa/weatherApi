@@ -17,7 +17,8 @@ var express = require('express'),
 
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://admin:admin94@ds351827.mlab.com:51827/weather', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://admin:admin94@weather.nd1br.mongodb.net/weather', { useNewUrlParser: true });
+//mongoose.connect('mongodb://admin:admin94@ds351827.mlab.com:51827/weather', { useNewUrlParser: true });
 
 app.use(express.static(__dirname + '/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
